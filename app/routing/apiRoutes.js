@@ -1,13 +1,25 @@
-var path = require('path');
-var express = require('express');
+var friends = require('../data/friends')
 
-var port = process.env.PORT || 8080;
-var app = express();
 
-app.get('/api/friends', (req, res) => {
-    
-});
+const getFriends = () => {
+    return friends;
+}
 
-app.post('/api/friends', (req, res) => {
-    
-});
+const postFriend = friendObject => {
+    var diffArray = [];
+    var curUserScores = friendObject.scores;
+    for (var i = 0; i < friends.length; i++) {
+        var sum = 0;
+        for (var j = 0; j < curUserScores.length; j++) {
+            sum += Math.abs(curUserScores[j] - friends[i].scores[j]);
+        }
+        diffArray.push(sum);
+    }
+    friends.push(friendObject);
+    return friends[diffArray.indexOf(Math.min(...diffArray))];
+}
+
+module.exports = {
+    getFriends,
+    postFriend
+}

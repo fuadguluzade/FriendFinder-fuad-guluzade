@@ -1,17 +1,13 @@
 var path = require('path');
-var express = require('express');
+const getSurvey = () => {
+    return path.join(__dirname, '/../public/survey.html');
+}
 
-var port = process.env.PORT || 8080;
-var app = express();
+const getHome = () => {
+    return path.join(__dirname, "/../public/home.html");
+}
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "/../public/home.html"));
-});
-
-app.get('/survey', (req, res) => {
-    res.sendFile(path.join(__dirname, '/../public/survey.html'));
-});
-
-app.listen(port, function () {
-    console.log("App listening on PORT " + port);
-});
+module.exports = {
+    getSurvey,
+    getHome
+}
